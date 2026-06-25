@@ -1,0 +1,57 @@
+###POST Create Team (No token required)
+###{{server}}/{{service}}/entity name that is exposed in the service
+POST http://localhost:4004/odata/v4/fifa/Teams
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name": "Brazil",
+    "country": "Brazil",
+    "coach": "XYZ",
+    "generalFormation": "4-3-3",
+    "customaspectproperty": "Elite Team"
+}
+
+############################################
+### TEAMS - GET ALL
+###{{server}}/{{service}}/entity name that is exposed in the service
+############################################
+GET http://localhost:4004/odata/v4/fifa/Teams
+Content-Type: application/json
+x-csrf-token: fetch
+Accept: application/json
+
+###Patch Update Team (No token required)
+###{{server}}/{{service}}/entity name that is exposed in the service
+PATCH http://localhost:4004/odata/v4/fifa/Teams(194eb471-9e53-416c-b8a7-3acf571f101c)
+Content-Type: application/json
+Accept: application/json
+
+{
+    "coach": "ABC",
+    "generalFormation": "3-5-2",
+    "customaspectproperty": "Elite team"
+}
+
+
+############################################
+### Stadiums - Post Create Stadium (No token required)
+###{{server}}/{{service}}/entity name that is exposed in the service
+############################################
+POST http://localhost:4004/odata/v4/fifa/Stadiums
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name": "Maracana",
+    "city": "Rio de Janeiro",
+    "capacity": 78838
+}
+
+############################################
+### Stadiums - GET ALL
+############################################
+GET http://localhost:4004/odata/v4/fifa/Stadiums
+Content-Type: application/json
+x-csrf-token: fetch
+Accept: application/json
