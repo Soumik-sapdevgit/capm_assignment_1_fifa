@@ -1,6 +1,8 @@
 ###POST Create Team (No token required)
 ###{{server}}/{{service}}/entity name that is exposed in the service
-POST http://localhost:4004/odata/v4/fifa/Teams
+###POST http://localhost:4004/odata/v4/fifa/Teams
+### As we have added @path in service definition, we can use the path to access the service. The path is specified as '/fifa' in the service definition, so we can use it to access the Teams entity.
+POST http://localhost:4004/fifa/Teams
 Content-Type: application/json
 Accept: application/json
 
@@ -16,14 +18,16 @@ Accept: application/json
 ### TEAMS - GET ALL
 ###{{server}}/{{service}}/entity name that is exposed in the service
 ############################################
-GET http://localhost:4004/odata/v4/fifa/Teams
+###GET http://localhost:4004/odata/v4/fifa/Teams
+GET http://localhost:4004/fifa/Teams
 Content-Type: application/json
 x-csrf-token: fetch
 Accept: application/json
 
 ###Patch Update Team (No token required)
 ###{{server}}/{{service}}/entity name that is exposed in the service
-PATCH http://localhost:4004/odata/v4/fifa/Teams(194eb471-9e53-416c-b8a7-3acf571f101c)
+###PATCH http://localhost:4004/odata/v4/fifa/Teams(194eb471-9e53-416c-b8a7-3acf571f101c)
+PATCH http://localhost:4004/fifa/Teams(194eb471-9e53-416c-b8a7-3acf571f101c)
 Content-Type: application/json
 Accept: application/json
 
@@ -38,7 +42,8 @@ Accept: application/json
 ### Stadiums - Post Create Stadium (No token required)
 ###{{server}}/{{service}}/entity name that is exposed in the service
 ############################################
-POST http://localhost:4004/odata/v4/fifa/Stadiums
+###POST http://localhost:4004/odata/v4/fifa/Stadiums
+POST http://localhost:4004/fifa/Stadiums
 Content-Type: application/json
 Accept: application/json
 
@@ -51,7 +56,111 @@ Accept: application/json
 ############################################
 ### Stadiums - GET ALL
 ############################################
-GET http://localhost:4004/odata/v4/fifa/Stadiums
+###GET http://localhost:4004/odata/v4/fifa/Stadiums
+GET http://localhost:4004/fifa/Stadiums
 Content-Type: application/json
 x-csrf-token: fetch
 Accept: application/json
+
+
+############################################
+### Players - GET ALL
+############################################
+###GET http://localhost:4004/odata/v4/fifa/Players
+GET http://localhost:4004/fifa/Players
+    Content-Type: application/json
+    x-csrf-token: fetch
+    Accept: application/json
+
+
+
+###############################################
+### Filter Team by Country
+###############################################
+###GET http://localhost:4004/odata/v4/fifa/Teams?$filter=country eq 'Brazil'
+GET http://localhost:4004/fifa/Teams?$filter=country eq 'Brazil'
+Content-Type: application/json
+x-csrf-token: fetch
+Accept: application/json
+
+################################################
+### select specific fields from Team entity
+################################################
+###GET http://localhost:4004/odata/v4/fifa/Teams?$select=name
+GET http://localhost:4004/fifa/Teams?$select=name,country,coach
+Content-Type: application/json
+x-csrf-token: fetch
+Accept: application/json
+
+#############################################
+### Orderby Team by Name
+#############################################
+###GET http://localhost:4004/odata/v4/fifa/Teams?$orderby=name
+GET http://localhost:4004/fifa/Teams?$orderby=name
+Content-Type: application/json
+x-csrf-token: fetch
+Accept: application/json
+
+
+##############################################
+### Top 2 Teams
+##############################################
+###GET http://localhost:4004/odata/v4/fifa/Teams?$top=2
+GET http://localhost:4004/fifa/Teams?$top=2
+Content-Type: application/json
+x-csrf-token: fetch
+Accept: application/json
+
+###############################################
+### Skip 2 Teams
+###############################################
+###GET http://localhost:4004/odata/v4/fifa/Teams?$skip=2
+GET http://localhost:4004/fifa/Teams?$skip=2
+Content-Type: application/json
+x-csrf-token: fetch
+Accept: application/json
+
+###############################################
+### Count Teams
+###############################################
+###GET http://localhost:4004/odata/v4/fifa/Teams/$count
+GET http://localhost:4004/fifa/Teams/$count
+Content-Type: application/json
+x-csrf-token: fetch
+Accept: application/json
+
+################################################
+### expand Players in Team entity, 
+### in expand we need to give the navigatoin property name, 
+###which is defined in the entity definition in schema.cds file.
+################################################
+###GET http://localhost:4004/odata/v4/fifa/Teams?$expand=Players
+GET http://localhost:4004/fifa/Teams?$expand=players
+Content-Type: application/json
+x-csrf-token: fetch
+Accept: application/json
+
+
+### Get Total Goals Scored by a Player
+
+GET http://localhost:4004/fifa/getPlayerGoalCount(playerID='10000000-0000-0000-0000-000000000001')
+Accept: application/json
+
+
+### Get team data T001
+GET http://localhost:4004/fifa/Teams('11111111-1111-1111-1111-111111111111')
+Content-Type: application/json
+x-csrf-token: fetch
+Accept: application/json
+
+
+### Update Team Coach
+
+POST http://localhost:4004/fifa/updateCoach
+Content-Type: application/json
+Accept: application/json
+
+{
+    "teamID": "11111111-1111-1111-1111-111111111111",
+    "newCoach": "Pep Guardiola"
+}
