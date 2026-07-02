@@ -164,3 +164,72 @@ Accept: application/json
     "teamID": "11111111-1111-1111-1111-111111111111",
     "newCoach": "Pep Guardiola"
 }
+
+### Update Team Coach - check if data is updated in Hana db
+
+POST http://localhost:4004/fifa/updateCoach
+Content-Type: application/json
+Accept: application/json
+
+{
+    "teamID": "55555555-5555-5555-5555-555555555555",
+    "newCoach": "Pep Guardiola"
+}
+
+
+
+############################################
+### TEAMS - GET ALL, with Mock user Authentication
+###{{server}}/{{service}}/entity name that is exposed in the service
+###Authorization: Basic name:password - from package.json file, 
+### we have defined the mock user authentication with name and password. So we can use the same to access the service.
+############################################
+###GET http://localhost:4004/odata/v4/fifa/Teams
+GET http://localhost:4004/fifa/Teams
+Authorization: Basic Soumik:Soumik
+Content-Type: application/json
+x-csrf-token: fetch
+Accept: application/json
+
+############################################
+### TEAMS - POST, with Mock Viewer user Authentication, 
+###{{server}}/{{service}}/entity name that is exposed in the service
+###Authorization: Basic name:password - from package.json file, 
+### we have defined the mock user authentication with name and password. So we can use the same to access the service.
+############################################
+###GET http://localhost:4004/odata/v4/fifa/Teams
+POST http://localhost:4004/fifa/Teams
+Authorization: Basic Soumik:Soumik
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name": "Argentina",
+    "country": "Argentina",
+    "coach": "Lionel Scaloni",
+    "generalFormation": "4-3-3",
+    "customaspectproperty": "Elite Team"
+}
+
+
+############################################
+### TEAMS - POST, with TeamManager user Authentication, 
+###{{server}}/{{service}}/entity name that is exposed in the service
+###Authorization: Basic name:password - from package.json file, 
+### we have defined the mock user authentication with name and password. So we can use the same to access the service.
+############################################
+###GET http://localhost:4004/odata/v4/fifa/Teams
+POST http://localhost:4004/fifa/Teams
+Authorization: Basic TeamManager:TeamManager
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name": "Argentina",
+    "country": "Argentina",
+    "coach": "Lionel Scaloni",
+    "generalFormation": "4-3-3",
+    "customaspectproperty": "Elite Team"
+}
+
+
