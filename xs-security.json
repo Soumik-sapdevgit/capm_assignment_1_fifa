@@ -1,0 +1,60 @@
+{
+  
+  "xsappname": "fifa-app",
+  "tenant-mode": "dedicated",
+  "description": "Security config FIFA Application",
+
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.ViewTeams",
+      "Description": "Read-only Teams and its players data"
+    },
+    {
+      "name": "$XSAPPNAME.ManageTeams",
+      "description": "Create, update, and delete teams and players"
+    },
+    {
+      "name": "$XSAPPNAME.ViewMatches",
+      "description": "Read-only access to matches and player scores"
+    },
+    {
+      "name": "$XSAPPNAME.ManageMatches",
+      "description": "Create and manage matches, record player scores"
+    },
+    {
+      "name": "$XSAPPNAME.Admin",
+      "description": "Full administrative access to all entities and actions"
+    }
+  ],
+  "attributes": [],
+  "role-templates": [
+    {
+      "name": "FifaViewer",
+      "description": "Viewer of Teams and its players data and Matches",
+      "scope-references": [
+        "$XSAPPNAME.ViewTeams"
+      ]
+    },
+    {
+      "name": "FifaManager",
+      "description": "Manager of Teams and its players data and Matches",
+      "scope-references": [
+        "$XSAPPNAME.ViewTeams",
+        "$XSAPPNAME.ManageTeams",
+        "$XSAPPNAME.ViewMatches",
+        "$XSAPPNAME.ManageMatches"
+      ]
+    },
+    {
+      "name": "FifaAdmin",
+      "description": "Administrator with full access to all entities and actions",
+      "scope-references": [
+        "$XSAPPNAME.ViewTeams",
+        "$XSAPPNAME.ManageTeams",
+        "$XSAPPNAME.ViewMatches",
+        "$XSAPPNAME.ManageMatches",
+        "$XSAPPNAME.Admin"
+      ]
+    }
+  ]
+}

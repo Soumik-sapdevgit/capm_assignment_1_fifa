@@ -25,6 +25,7 @@ modules:
           srv-url: ${default-url}
     requires:
       - name: capm_assignment_1-db
+      - name: capm_assignment_1-auth
 
   - name: capm_assignment_1-db-deployer
     type: hdb
@@ -40,3 +41,16 @@ resources:
     parameters:
       service: hana
       service-plan: hdi-shared
+  - name: capm_assignment_1-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: capm_assignment_1-${org}-${space}
+        tenant-mode: dedicated
+        oauth2-configuration:
+          credential-types:
+            - "binding-secret"
+            - "x509"

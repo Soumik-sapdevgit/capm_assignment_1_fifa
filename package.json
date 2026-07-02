@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "dependencies": {
     "@cap-js/hana": "^2",
-    "@sap/cds": "^9"
+    "@sap/cds": "^9",
+    "@sap/xssec": "^4"
   },
   "devDependencies": {
     "@cap-js/sqlite": "^2.4",
@@ -13,12 +14,51 @@
   "scripts": {
     "start": "cds-serve"
   },
-  "cds":{
+  "cds": {
     "requires": {
       "db": {
-        "kind": "sqlite",
-        "credentials": {
-          "database": "local.db"
+        "[development]": {
+          "kind": "sqlite",
+          "credentials": {
+            "database": "local.db"
+          }
+        },
+        "[production]": {
+          "kind": "hana"
+        }
+      },
+      "[production]": {
+        "auth": "xsuaa"
+      },
+      "auth": {
+        "[development]": {
+          "kind": "mocked",
+          "users": {
+            "Soumik": {
+              "name": "Soumik",
+              "password": "Soumik",
+              "roles": [
+                "FifaViewer"
+              ]
+            },
+            "TeamManager": {
+              "name": "TeamManager",
+              "password": "TeamManager",
+              "roles": [
+                "FifaViewer",
+                "FifaManager"
+              ]
+            },
+            "Admin": {
+              "name": "Admin",
+              "password": "Admin",
+              "roles": [
+                "FifaViewer",
+                "FifaManager",
+                "FifaAdmin"
+              ]
+            }
+          }
         }
       }
     }
